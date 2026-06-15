@@ -124,18 +124,7 @@ export default function Login() {
 
           </form>
 
-          {/* Redirect to Signup */}
-          <div className="mt-6 text-center">
-            <span className="text-xs text-slate-500 font-light">
-              New administrator?{' '}
-              <button 
-                onClick={() => navigate('/signup')}
-                className="text-rose-600 hover:text-rose-700 font-bold hover:underline cursor-pointer"
-              >
-                Create Account
-              </button>
-            </span>
-          </div>
+
 
           {/* Quick Sandbox Help Info */}
           {!isFirebaseConfigured && (

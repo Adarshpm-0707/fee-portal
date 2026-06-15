@@ -18,9 +18,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS configuration - Allow Vite frontend in development
+// CORS configuration - Allow Vite frontend in development and production dynamically
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: (origin, callback) => {
+    // Dynamic origin matching to support Firebase hosting, local VPS, tunnels (Ngrok), etc.
+    callback(null, true);
+  },
   credentials: true
 }));
 
