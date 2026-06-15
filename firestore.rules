@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Students collection rules
+    match /students/{docId} {
+      allow read, write: if true;
+    }
+
+    // 2. feeRecords collection rules
+    match /feeRecords/{docId} {
+      allow read, write: if true;
+    }
+
+    // 3. notifications collection rules
+    match /notifications/{docId} {
+      allow read, write: if true;
+    }
+
+    // 4. settings collection rules
+    match /settings/{docId} {
+      allow read, write: if true;
+    }
+
+    // 5. admins collection rules - Firestore-based auth
+    match /admins/{docId} {
+      allow read, write: if true;
+    }
+
+    // Global fallback
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
