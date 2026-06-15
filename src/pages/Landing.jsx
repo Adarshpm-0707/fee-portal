@@ -25,7 +25,7 @@ export default function Landing() {
 
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-slate-900 leading-tight">
-          Auto Fee{" "} <br/>
+          Auto Fee{" "} 
           <span className="bg-gradient-to-r from-rose-600 via-indigo-600 to-indigo-700 bg-clip-text text-transparent">
             <br className="hidden sm:inline" /> Management <br/> Portal
           </span>
@@ -33,7 +33,7 @@ export default function Landing() {
         
         {/* Description */}
         <p className="text-sm md:text-base text-slate-600 max-w-2xl mb-8 md:mb-12 font-light leading-relaxed px-2">
-      This portal helps manage student records, automate fee collection and receipt generation, send instant announcements and notifications, and maintain organized financial records.
+     This portal helps manage student auto fee records and receipt generation, send instant announcements and notifications, and maintain organized financial records.
         </p>
 
         {/* Navigation Grid (Private Admin layout hides /login card) */}
