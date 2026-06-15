@@ -24,10 +24,10 @@ export default function Landing() {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-slate-900 leading-tight">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 text-slate-900 leading-tight">
           Auto Fee{" "} 
-          <span className="bg-gradient-to-r from-rose-600 via-indigo-600 to-indigo-700 bg-clip-text text-transparent">
-            <br className="hidden sm:inline" /> Management <br/> Portal
+          <span className="bg-gradient-to-r from-rose-600 via-indigo-600 to-indigo-700 bg-clip-text text-transparent block sm:inline">
+            Management <br className="sm:hidden" /> Portal
           </span>
         </h1>
         
