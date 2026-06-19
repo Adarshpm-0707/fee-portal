@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { storage, isFirebaseConfigured } from './firebase.js';
 import { ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { formatClassName } from './firestore.js';
 
 // Cache the jsPDF class to avoid re-loading the module every time
 let _jsPDFCached = null;
@@ -95,7 +96,7 @@ export function generateReceipt(student, feeRecord, adminName = 'Administrator')
   doc.text(`Student Name :  ${student.fullName}`, 22, 91);
   doc.text(`Student ID       :  ${student.studentId}`, 22, 98);
   doc.text(`Admission No :  ${student.admissionNumber || 'Pending Admission'}`, 22, 105);
-  doc.text(`Class/Grade   :  Class ${student.class}`, 22, 112);
+  doc.text(`Class/Grade   :  ${formatClassName(student.class)}`, 22, 112);
 
   // Right side - Parent Details
   doc.setFont('helvetica', 'bold');

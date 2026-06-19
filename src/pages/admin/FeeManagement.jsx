@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../../components/AdminSidebar.jsx';
-import { getStudents, getFeesByStudent, updateFeeRecord, addFeeRecord } from '../../lib/firestore.js';
+import { getStudents, getFeesByStudent, updateFeeRecord, addFeeRecord, AVAILABLE_CLASSES, formatClassName, formatClassNameShort } from '../../lib/firestore.js';
 import { generateReceipt, uploadReceiptToStorage } from '../../lib/generatePDF.js';
 import { sendReceipt, sendToAll, sendToBulk } from '../../lib/whatsappAPI.js';
 import { 
@@ -336,8 +336,8 @@ export default function FeeManagement() {
               className="w-full bg-white border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-705 text-xs font-semibold cursor-pointer"
             >
               <option value="All">All Classes Enrolled</option>
-              {[...Array(12)].map((_, i) => (
-                <option key={i+1} value={String(i+1)}>Class {i+1}</option>
+              {AVAILABLE_CLASSES.map((cls) => (
+                <option key={cls} value={cls}>{formatClassName(cls)}</option>
               ))}
             </select>
           </div>
@@ -408,7 +408,7 @@ export default function FeeManagement() {
                         </td>
 
                         {/* Class */}
-                        <td className="py-2.5 px-3 text-center text-slate-500">Cl. {stu.class}</td>
+                         <td className="py-2.5 px-3 text-center text-slate-500">{formatClassNameShort(stu.class)}</td>
 
                         {/* Month block columns */}
                         {ACADEMIC_MONTHS.map(m => {
@@ -500,7 +500,7 @@ export default function FeeManagement() {
               <header className="mb-6">
                 <span className="text-[10px] text-rose-600 tracking-wider uppercase font-extrabold font-mono">Month: {editingCell.month}</span>
                 <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">{editingCell.student.fullName}</h3>
-                <p className="text-[10px] text-slate-450 font-mono mt-0.5">ID: {editingCell.student.studentId} • Class {editingCell.student.class}</p>
+                 <p className="text-[10px] text-slate-450 font-mono mt-0.5">ID: {editingCell.student.studentId} • {formatClassName(editingCell.student.class)}</p>
               </header>
 
               {/* ACTION: PAY MODAL */}

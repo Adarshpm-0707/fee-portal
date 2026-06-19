@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AdminSidebar from '../../components/AdminSidebar.jsx';
-import { addStudent, getNextAdmissionNumber } from '../../lib/firestore.js';
+import { addStudent, getNextAdmissionNumber, AVAILABLE_CLASSES, formatClassName } from '../../lib/firestore.js';
 import { GraduationCap, ArrowLeft, Loader2, Save, Plus, Trash2 } from 'lucide-react';
  
 export default function StudentNew() {
@@ -15,7 +15,7 @@ export default function StudentNew() {
  
   const [children, setChildren] = useState([{
     fullName: '',
-    studentClass: '1',
+    studentClass: AVAILABLE_CLASSES[0],
     status: 'pending_admission',
     admissionNumber: '',
     feeCategory: 'Auto Fee',
@@ -28,7 +28,7 @@ export default function StudentNew() {
   const addChild = () => {
     setChildren([...children, {
       fullName: '',
-      studentClass: '1',
+      studentClass: AVAILABLE_CLASSES[0],
       status: 'pending_admission',
       admissionNumber: '',
       feeCategory: 'Auto Fee',
@@ -269,8 +269,8 @@ export default function StudentNew() {
                       onChange={(e) => updateChild(index, 'studentClass', e.target.value)}
                       className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-700 text-xs font-semibold cursor-pointer"
                     >
-                      {[...Array(12)].map((_, i) => (
-                        <option key={i+1} value={String(i+1)}>Class {i+1}</option>
+                      {AVAILABLE_CLASSES.map((cls) => (
+                        <option key={cls} value={cls}>{formatClassName(cls)}</option>
                       ))}
                     </select>
                   </div>

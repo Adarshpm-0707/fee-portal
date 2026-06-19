@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminSidebar from '../../components/AdminSidebar.jsx';
-import { getStudentById, updateStudent, getStudentsByContact, getNextAdmissionNumber, getFeesByStudent } from '../../lib/firestore.js';
+import { getStudentById, updateStudent, getStudentsByContact, getNextAdmissionNumber, getFeesByStudent, AVAILABLE_CLASSES, formatClassName } from '../../lib/firestore.js';
 import { sendReceipt } from '../../lib/whatsappAPI.js';
 import { GraduationCap, ArrowLeft, Loader2, Save, MessageSquare, CreditCard, Calendar, CheckCircle, AlertCircle, IndianRupee } from 'lucide-react';
  
@@ -19,7 +19,7 @@ export default function StudentDetail() {
   const [fullName, setFullName] = useState('');
   const [parentName, setParentName] = useState('');
   const [contact, setContact] = useState('');
-  const [studentClass, setStudentClass] = useState('1');
+  const [studentClass, setStudentClass] = useState(AVAILABLE_CLASSES[0]);
   const [location, setLocation] = useState('');
   const [admissionNumber, setAdmissionNumber] = useState('');
   const [feeCategory, setFeeCategory] = useState('Auto Fee');
@@ -304,8 +304,8 @@ export default function StudentDetail() {
                   onChange={(e) => setStudentClass(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-700 text-xs cursor-pointer font-semibold"
                 >
-                  {[...Array(12)].map((_, i) => (
-                    <option key={i+1} value={String(i+1)}>Class {i+1}</option>
+                  {AVAILABLE_CLASSES.map((cls) => (
+                    <option key={cls} value={cls}>{formatClassName(cls)}</option>
                   ))}
                 </select>
               </div>
@@ -375,15 +375,34 @@ export default function StudentDetail() {
 
             {/* Monthly fee */}
             <div>
-              <label className="block text-[10px] font-bold text-slate-550 uppercase tracking-wider mb-2">Monthly Fee Rate (INR)</label>
-              <input 
-                type="number" 
-                value={monthlyFee}
-                onChange={(e) => setMonthlyFee(Number(e.target.value))}
-                min="0"
-                required
-                className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-900 text-xs font-mono transition-all"
-              />
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-[10px] font-bold text-slate-550 uppercase tracking-wider">Monthly Fee Rate (INR)</label>
+                {monthlyFee > 0 && (
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full font-mono">
+                    ₹{monthlyFee.toLocaleString('en-IN')}/month
+                  </span>
+                )}
+              </div>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs font-bold select-none">₹</span>
+                <input 
+                  type="number" 
+                  value={monthlyFee}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setMonthlyFee(val === '' ? 0 : Math.max(0, Number(val)));
+                  }}
+                  onFocus={(e) => e.target.select()}
+                  min="0"
+                  step="50"
+                  required
+                  placeholder="0"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl pl-8 pr-4 py-2.5 text-slate-900 text-xs font-mono transition-all focus:outline-none focus:ring-1 focus:ring-rose-500"
+                />
+              </div>
+              <p className="text-[10px] text-slate-400 font-light mt-1.5">
+                Saving will auto-sync this rate to all <span className="font-semibold text-amber-600">unpaid</span> months in the fee ledger &amp; parent view.
+              </p>
             </div>
 
           </div>
@@ -506,7 +525,7 @@ export default function StudentDetail() {
                   <div key={sib.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center shadow-sm">
                     <div>
                       <span className="font-bold text-slate-800 text-xs block">{sib.fullName}</span>
-                      <span className="text-[10px] text-slate-500 font-mono">Class {sib.class} | ID: {sib.studentId}</span>
+                      <span className="text-[10px] text-slate-500 font-mono">{formatClassName(sib.class)} | ID: {sib.studentId}</span>
                     </div>
                     <button
                       type="button"

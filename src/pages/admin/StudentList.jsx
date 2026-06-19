@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from '../../components/AdminSidebar.jsx';
-import { getStudents, deleteStudent } from '../../lib/firestore.js';
+import { getStudents, deleteStudent, AVAILABLE_CLASSES, formatClassName } from '../../lib/firestore.js';
 import { sendToBulk, sendReceipt } from '../../lib/whatsappAPI.js';
 import { 
   Plus, Search, Filter, MessageSquare, Edit2, Trash2, 
@@ -193,8 +193,8 @@ export default function StudentList() {
               className="w-full bg-white border border-slate-200 focus:border-rose-500 rounded-xl pl-11 pr-4 py-2.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-rose-500 text-xs font-semibold cursor-pointer appearance-none"
             >
               <option value="All">All Classes</option>
-              {[...Array(12)].map((_, i) => (
-                <option key={i+1} value={String(i+1)}>Class {i+1}</option>
+              {AVAILABLE_CLASSES.map((cls) => (
+                <option key={cls} value={cls}>{formatClassName(cls)}</option>
               ))}
             </select>
           </div>
@@ -301,7 +301,7 @@ export default function StudentList() {
 
                         {/* Grade details */}
                         <td className="py-3.5 px-4">
-                          <div className="text-slate-850 font-bold">Class {stu.class}</div>
+                          <div className="text-slate-850 font-bold">{formatClassName(stu.class)}</div>
                           <div className="text-slate-400 text-[10px] mt-0.5">{stu.location || 'N/A'}</div>
                         </td>
 

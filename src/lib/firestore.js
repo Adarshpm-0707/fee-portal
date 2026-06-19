@@ -55,6 +55,20 @@ const INITIAL_STUDENTS = [
 
 export const ACADEMIC_MONTHS = ["JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", "JAN", "FEB", "MAR", "APR", "MAY"];
 
+export const AVAILABLE_CLASSES = ["Bahja", "1", "2", "3", "4", "5", "6", "7", "8"];
+
+export function formatClassName(cls) {
+  if (!cls) return '';
+  if (cls.toLowerCase() === 'bahja') return 'Bahja';
+  return `Class ${cls}`;
+}
+
+export function formatClassNameShort(cls) {
+  if (!cls) return '';
+  if (cls.toLowerCase() === 'bahja') return 'Bahja';
+  return `Cl. ${cls}`;
+}
+
 // Generate some mock fee records for active students
 const getInitialFeeRecords = () => {
   const records = [];
@@ -164,7 +178,7 @@ export async function addStudent(studentData) {
     const docRef = await addDoc(collection(db, 'students'), finalData);
     
     // Auto initialize feeRecords if status is active
-    if (finalData.status === 'active' && finalData.monthlyFee > 0) {
+    if (finalData.status === 'active') {
       await initializeFeeRecordsForStudent(studentId, finalData.admissionNumber, finalData.monthlyFee);
     }
 
@@ -189,7 +203,7 @@ export async function addStudent(studentData) {
     saveLocalData('mock_students', students);
 
     // Auto initialize feeRecords if active
-    if (newStudent.status === 'active' && newStudent.monthlyFee > 0) {
+    if (newStudent.status === 'active') {
       await initializeFeeRecordsForStudent(studentId, newStudent.admissionNumber, newStudent.monthlyFee);
     }
 
@@ -275,8 +289,9 @@ export async function updateStudent(id, updatedData) {
     // If student status was changed to active, ensure fee records are initialized
     const updatedSnap = await getDoc(docRef);
     const student = updatedSnap.data();
-    if (student.status === 'active' && student.monthlyFee > 0) {
-      await initializeFeeRecordsForStudent(student.studentId, student.admissionNumber, student.monthlyFee);
+    // If student status is active, always sync fee records (even if monthlyFee is 0)
+    if (student.status === 'active') {
+      await initializeFeeRecordsForStudent(student.studentId, student.admissionNumber, student.monthlyFee ?? 0);
     }
 
     return { id: docId, ...student };
@@ -293,8 +308,9 @@ export async function updateStudent(id, updatedData) {
     saveLocalData('mock_students', students);
 
     const student = students[index];
-    if (student.status === 'active' && student.monthlyFee > 0) {
-      await initializeFeeRecordsForStudent(student.studentId, student.admissionNumber, student.monthlyFee);
+    // If student status is active, always sync fee records (even if monthlyFee is 0)
+    if (student.status === 'active') {
+      await initializeFeeRecordsForStudent(student.studentId, student.admissionNumber, student.monthlyFee ?? 0);
     }
 
     return student;

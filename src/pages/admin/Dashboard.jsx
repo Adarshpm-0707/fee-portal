@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from '../../components/AdminSidebar.jsx';
-import { getDashboardStats, updateAdmissionNumber, getNextAdmissionNumber, clearAllData } from '../../lib/firestore.js';
+import { getDashboardStats, updateAdmissionNumber, getNextAdmissionNumber, clearAllData, formatClassName } from '../../lib/firestore.js';
 import { getWhatsAppStatus, sendToAll } from '../../lib/whatsappAPI.js';
 import { 
   Users, UserCheck, UserMinus, UserPlus, IndianRupee, MessageSquare, 
@@ -282,7 +282,7 @@ export default function Dashboard() {
                         </td>
                         <td className="py-3 px-3">{stu.parentName}</td>
                         <td className="py-3 px-3 text-slate-500 font-mono">+91 {stu.contact}</td>
-                        <td className="py-3 px-3">Class {stu.class}</td>
+                        <td className="py-3 px-3">{formatClassName(stu.class)}</td>
                         <td className="py-3 px-3 text-right">
                           <button
                             onClick={() => handleOpenAssignModal(stu)}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { getFeesByStudent, getStudentsByContact, ACADEMIC_MONTHS } from '../../lib/firestore.js';
+import { getFeesByStudent, getStudentsByContact, ACADEMIC_MONTHS, formatClassName } from '../../lib/firestore.js';
 import { downloadReceiptLocally } from '../../lib/generatePDF.js';
 import { 
   GraduationCap, LogOut, Download, CheckCircle, 
@@ -155,7 +155,7 @@ export default function ParentFeeView() {
                 <div className={`w-2 h-2 rounded-full ${selectedChild?.studentId === child.studentId ? 'bg-indigo-600' : 'bg-slate-300'}`} />
                 <span className="font-bold text-sm">{child.fullName}</span>
                 <span className="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded uppercase font-bold text-slate-500">
-                  Class {child.class}
+                   {formatClassName(child.class)}
                 </span>
               </button>
             ))}
@@ -177,7 +177,7 @@ export default function ParentFeeView() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <ShieldCheck className="h-4 w-4" />
-                    Class {selectedChild?.class}
+                    {formatClassName(selectedChild?.class)}
                   </div>
                 </div>
               </div>
@@ -211,7 +211,7 @@ export default function ParentFeeView() {
                   </p>
                 )}
               </div>
-            
+             
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addStudent } from '../lib/firestore.js';
+import { addStudent, AVAILABLE_CLASSES, formatClassName } from '../lib/firestore.js';
 import { GraduationCap, ArrowLeft, Copy, Check, Info } from 'lucide-react';
 
 export default function Register() {
@@ -8,7 +8,7 @@ export default function Register() {
   const [parentName, setParentName] = useState('');
   const [contact, setContact] = useState('');
   const [location, setLocation] = useState('');
-  const [children, setChildren] = useState([{ fullName: '', studentClass: '1' }]);
+  const [children, setChildren] = useState([{ fullName: '', studentClass: AVAILABLE_CLASSES[0] }]);
   
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ export default function Register() {
   const [copiedId, setCopiedId] = useState(null);
 
   const addChild = () => {
-    setChildren([...children, { fullName: '', studentClass: '1' }]);
+    setChildren([...children, { fullName: '', studentClass: AVAILABLE_CLASSES[0] }]);
   };
 
   const removeChild = (index) => {
@@ -221,8 +221,8 @@ export default function Register() {
                           onChange={(e) => updateChild(index, 'studentClass', e.target.value)}
                           className="w-full bg-white border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-1 focus:ring-rose-500 transition-all font-medium text-xs cursor-pointer"
                         >
-                          {[...Array(12)].map((_, i) => (
-                            <option key={i+1} value={String(i+1)}>Class {i+1}</option>
+                          {AVAILABLE_CLASSES.map((cls) => (
+                            <option key={cls} value={cls}>{formatClassName(cls)}</option>
                           ))}
                         </select>
                       </div>
@@ -286,7 +286,7 @@ export default function Register() {
                 {successData.map((child, index) => (
                   <div key={index} className="flex justify-between items-center p-2.5 bg-white border border-slate-200 rounded-xl text-xs">
                     <span className="font-bold text-slate-800">{child.fullName}</span>
-                    <span className="text-slate-500 font-medium">Class {child.class}</span>
+                    <span className="text-slate-500 font-medium">{formatClassName(child.class)}</span>
                   </div>
                 ))}
               </div>
