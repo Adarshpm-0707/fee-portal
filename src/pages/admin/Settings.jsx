@@ -75,12 +75,12 @@ export default function Settings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 text-slate-900 flex">
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex dark-scrollbar">
         <AdminSidebar />
         <main className="flex-grow flex items-center justify-center">
           <div className="flex flex-col items-center gap-2">
-            <Loader2 className="h-8 w-8 animate-spin text-rose-600" />
-            <span className="text-sm text-slate-500 font-light">Loading configurations...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-rose-500" />
+            <span className="text-sm text-slate-400 font-light">Loading configurations...</span>
           </div>
         </main>
       </div>
@@ -88,7 +88,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex dark-scrollbar">
       {/* Sidebar navigation */}
       <AdminSidebar />
 
@@ -96,41 +96,41 @@ export default function Settings() {
       <main className="flex-1 p-8 overflow-y-auto max-w-4xl">
         
         {/* Header Ribbon */}
-        <header className="mb-8 pb-6 border-b border-slate-200">
-          <h1 className="text-2xl font-black text-slate-900 font-sans tracking-wide">System Settings</h1>
-          <p className="text-xs text-slate-500 font-light mt-1">Configure metadata variables, billing defaults and rules.</p>
+        <header className="mb-8 pb-6 border-b border-slate-800/60">
+          <h1 className="text-2xl font-black text-white font-sans tracking-wide">System Settings</h1>
+          <p className="text-xs text-slate-400 font-light mt-1">Configure metadata variables, billing defaults and rules.</p>
         </header>
 
         {success && (
-          <div className="mb-6 bg-emerald-50 border border-emerald-100 text-emerald-700 p-4 rounded-xl text-xs font-semibold shadow-sm">
+          <div className="mb-6 bg-emerald-950/40 border border-emerald-900/30 text-emerald-400 p-4 rounded-xl text-xs font-semibold shadow-sm animate-pulse">
             {success}
           </div>
         )}
         {error && (
-          <div className="mb-6 bg-rose-50 border border-rose-100 text-rose-700 p-4 rounded-xl text-xs font-light">
+          <div className="mb-6 bg-rose-950/40 border border-rose-900/30 text-rose-400 p-4 rounded-xl text-xs font-light shadow-sm">
             {error}
           </div>
         )}
 
         {/* Settings form container */}
-        <form onSubmit={handleSave} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-6">
+        <form onSubmit={handleSave} className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 shadow-md backdrop-blur-md space-y-6">
           
           <div className="flex items-center gap-2 mb-4">
-            <Sliders className="h-5 w-5 text-rose-650" />
-            <h3 className="text-sm font-bold text-slate-505 uppercase tracking-wider">School Identity & Pricing</h3>
+            <Sliders className="h-5 w-5 text-rose-500" />
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">School Identity & Pricing</h3>
           </div>
 
           <div className="grid grid-cols-1 gap-6">
             
             {/* School Name */}
             <div>
-              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">School Display Name</label>
+              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">School Display Name</label>
               <input
                 type="text"
                 value={schoolName}
                 onChange={(e) => setSchoolName(e.target.value)}
                 required
-                className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-900 text-xs font-medium focus:outline-none transition-all"
+                className="w-full bg-slate-950 border border-slate-800 focus:border-rose-500 rounded-xl px-4 py-2.5 text-white text-xs font-medium focus:outline-none transition-all dark-input"
               />
               <span className="text-[10px] text-slate-500 font-light mt-1.5 block leading-normal">
                 * This name is dynamically injected into generated PDF receipts and WhatsApp message headers.
@@ -139,14 +139,14 @@ export default function Settings() {
 
             {/* Default Fee */}
             <div>
-              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Base Monthly Fee Rate (INR)</label>
+              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Base Monthly Fee Rate (INR)</label>
               <input
                 type="number"
                 value={defaultFee}
                 onChange={(e) => setDefaultFee(Number(e.target.value))}
                 min="0"
                 required
-                className="w-full bg-slate-50 border border-slate-200 focus:border-rose-500 rounded-xl px-4 py-2.5 text-slate-900 text-xs font-mono font-bold focus:outline-none transition-all"
+                className="w-full bg-slate-950 border border-slate-800 focus:border-rose-500 rounded-xl px-4 py-2.5 text-white text-xs font-mono font-bold focus:outline-none transition-all dark-input"
               />
               <span className="text-[10px] text-slate-500 font-light mt-1.5 block leading-normal">
                 * Set default monthly billing rate applied to newly created students on admission.
@@ -155,7 +155,7 @@ export default function Settings() {
 
           </div>
 
-          <div className="h-px bg-slate-100 my-6"></div>
+          <div className="h-px bg-slate-800/80 my-6"></div>
 
           {/* Submit Actions */}
           <div className="flex justify-end pt-2">

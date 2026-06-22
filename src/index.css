@@ -38,3 +38,27 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #f8fafc inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Chrome autofill styling override for dark theme inputs */
+input.dark-input:-webkit-autofill,
+input.dark-input:-webkit-autofill:hover,
+input.dark-input:-webkit-autofill:focus,
+textarea.dark-input:-webkit-autofill,
+textarea.dark-input:-webkit-autofill:hover,
+textarea.dark-input:-webkit-autofill:focus,
+select.dark-input:-webkit-autofill,
+select.dark-input:-webkit-autofill:hover,
+select.dark-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f8fafc;
+  -webkit-box-shadow: 0 0 0px 1000px #020617 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Custom scrollbars for dark areas */
+.dark-scrollbar::-webkit-scrollbar-track {
+  @apply bg-slate-950;
+}
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+}
+

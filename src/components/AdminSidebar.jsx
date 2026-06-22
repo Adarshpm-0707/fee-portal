@@ -61,17 +61,17 @@ export default function AdminSidebar() {
       )}
 
       {/* Sidebar Component */}
-      <aside className={`fixed inset-y-0 left-0 z-35 w-64 bg-white border-r border-slate-200 shrink-0 flex flex-col justify-between py-6 px-4 h-screen transition-transform duration-300 transform md:sticky md:top-0 md:translate-x-0 ${
+      <aside className={`fixed inset-y-0 left-0 z-35 w-64 bg-slate-950 border-r border-slate-800/60 shrink-0 flex flex-col justify-between py-6 px-4 h-screen transition-transform duration-300 transform md:sticky md:top-0 md:translate-x-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
-      } overflow-y-auto shadow-xl md:shadow-none`}>
+      } overflow-y-auto shadow-xl md:shadow-none dark-scrollbar`}>
         
         {/* Brand Header */}
         <div>
           <div className="flex items-center gap-3 px-3 mb-8">
-            <GraduationCap className="h-8 w-8 text-rose-600 animate-pulse" />
+            <GraduationCap className="h-8 w-8 text-rose-500 animate-pulse" />
             <div>
-              <h2 className="text-base font-extrabold text-slate-900 tracking-wide leading-none">AL MADRASATHUL ISLAHIYYA</h2>
-              <span className="text-[10px] text-slate-400 font-bold tracking-widest uppercase">Admin Console</span>
+              <h2 className="text-base font-extrabold text-white tracking-wide leading-none">AL MADRASATHUL ISLAHIYYA</h2>
+              <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Admin Console</span>
             </div>
           </div>
 
@@ -90,12 +90,12 @@ export default function AdminSidebar() {
                   }}
                   className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-xs font-semibold tracking-wide transition-all border ${
                     isActive 
-                      ? 'bg-slate-950 border-slate-950 text-white font-bold shadow-md shadow-slate-950/10' 
-                      : 'bg-transparent border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-indigo-600/20 border-indigo-500/35 text-white font-bold shadow-lg shadow-indigo-950/20' 
+                      : 'bg-transparent border-transparent text-slate-400 hover:text-white hover:bg-slate-900/60'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                    <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-indigo-400' : 'text-slate-500'}`} />
                     <span>{item.name}</span>
                   </div>
 
@@ -103,10 +103,10 @@ export default function AdminSidebar() {
                   {item.badge && (
                     <span className={`h-2 w-2 rounded-full ring-2 ${
                       waStatus === 'ready' 
-                        ? 'bg-emerald-500 ring-emerald-100 animate-pulse' 
+                        ? 'bg-emerald-500 ring-emerald-950/40 animate-pulse' 
                         : waStatus === 'connecting'
-                        ? 'bg-amber-500 ring-amber-100'
-                        : 'bg-rose-500 ring-rose-100'
+                        ? 'bg-amber-500 ring-amber-950/40'
+                        : 'bg-rose-500 ring-rose-950/40'
                     }`} title={`WhatsApp status: ${waStatus}`} />
                   )}
                 </button>
@@ -116,28 +116,28 @@ export default function AdminSidebar() {
         </div>
 
         {/* Footer Log Out */}
-        <div className="pt-6 border-t border-slate-100">
+        <div className="pt-6 border-t border-slate-800/60">
           
           {/* Connection status snippet */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200/60 rounded-xl mb-4">
+          <div className="flex items-center gap-2 px-3 py-2 bg-slate-900/40 border border-slate-800/60 rounded-xl mb-4">
             {waStatus === 'ready' ? (
               <>
-                <Link2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                <span className="text-[10px] text-emerald-600 font-bold font-mono">WA: CONNECTED</span>
+                <Link2 className="h-3.5 w-3.5 text-emerald-555 shrink-0" />
+                <span className="text-[10px] text-emerald-450 font-bold font-mono">WA: CONNECTED</span>
               </>
             ) : (
               <>
-                <Link2Off className="h-3.5 w-3.5 text-rose-550 shrink-0" />
-                <span className="text-[10px] text-rose-550 font-bold font-mono">WA: OFFLINE</span>
+                <Link2Off className="h-3.5 w-3.5 text-rose-500 shrink-0" />
+                <span className="text-[10px] text-rose-450 font-bold font-mono">WA: OFFLINE</span>
               </>
             )}
           </div>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold text-slate-500 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-100 border border-transparent transition-all cursor-pointer"
+            className="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold text-slate-400 hover:text-rose-400 hover:bg-rose-950/25 hover:border-rose-900/30 border border-transparent transition-all cursor-pointer"
           >
-            <LogOut className="h-4.5 w-4.5 text-slate-400 group-hover:text-rose-600" />
+            <LogOut className="h-4.5 w-4.5 text-slate-500 group-hover:text-rose-400" />
             <span>Exit Admin Session</span>
           </button>
         </div>
